@@ -177,7 +177,6 @@ return [
         // Charlie\Providers\BroadcastServiceProvider::class,
         Charlie\Providers\EventServiceProvider::class,
         Charlie\Providers\RouteServiceProvider::class,
-
     ],
 
     /*

@@ -10,7 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
-    return view('welcome');
+	return 'Seja bem vindo ao curso de laravel Básico com Codecasts!';
 });
+
+Route::group(['prefix' => 'admin'], function () {
+	Route::resource('clientes', 'CustomersController');
+});
+
