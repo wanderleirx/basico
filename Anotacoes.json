@@ -1,0 +1,13 @@
+}
+    "COMANDOS":
+    {
+        "php artisan | grep name"  :  "Filtra o ultimo output do console",
+        "php artisan app:name Charlie" :  "seta o namespace como Charlie em toda aplicação"
+        "php artisan make:model Purchase" :  "cria uma classe Model de nome Purchase"
+        "php artisan make:migration create_purchases_table --create=purchases" :  "cria uma migration de nome purchases"
+        "php artisan migrate" :  "executa todas as migrations e consequentemente cria tabelas no banco"
+        "php artisan migrate:rollback" :  "deleta todas as execuções de migrations (deleta tabela no banco)"
+        "php artisan tinker" :  "abre um consle para comandos php"
+    }
+        
+}
