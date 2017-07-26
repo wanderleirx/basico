@@ -4,6 +4,7 @@ namespace Charlie\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Charlie\Customer;
+use Charlie\Http\Requests\CustomerFormRequest;
 
 class CustomersController extends Controller
 {
@@ -25,7 +26,10 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        //
+        $customer = new \stdClass();
+        $customer->special_customer = false;
+        $customersForSelect = Customer::groupBy('state')->get(['state'])->pluck('state', 'state');
+        return view('customers.create')->with(compact('customer', 'customersForSelect'));
     }
 
     /**
@@ -34,9 +38,13 @@ class CustomersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerFormRequest $request)
     {
-        //
+        $data = $request->only('name', 'birthdate', 'special_customer', 'city', 'state');
+        $data['special_customer'] = isset($data['special_customer']);
+        Customer::create($data);
+        return redirect()->route('clientes.create')->with(['success' => 'Cliente salvo comsucesso!']);
+        // dd($data);
     }
 
     /**
@@ -47,7 +55,7 @@ class CustomersController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -59,7 +67,8 @@ class CustomersController extends Controller
     public function edit($id)
     {
         $customer = Customer::find($id);
-        return view('customers.edit')->with(compact('customers'));
+        $customersForSelect = Customer::groupBy('state')->get(['state'])->pluck('state', 'state');
+        return view('customers.edit')->with(compact('customer', 'customersForSelect'));
     }
 
     /**
@@ -69,9 +78,14 @@ class CustomersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CustomerFormRequest $request, $id)
     {
-        //
+        $data = $request->only('name', 'special_customer', 'city', 'state');
+        $data['special_customer'] = isset($data['special_customer']);
+        $customer = Customer::find($id);
+        $customer->fill($data);
+        $customer->save();
+        return redirect()->route('clientes.edit', $id)->with(['success' => 'Cliente salvo comsucesso!']);
     }
 
     /**
@@ -82,6 +96,7 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Customer::where('id', '=', $id)->delete();
+        return redirect()->route('clientes.index')->with(['success' => 'Cliente excluido com sucesso!']);
     }
 }

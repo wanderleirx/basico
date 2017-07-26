@@ -5,27 +5,45 @@
 @stop
 
 @section('content')
-	<table class="table table-bordered table-striped">
-		<thead>
-			<tr>
-				<th>Nome</th>
-				<th>Cidade/Estado</th>
-				<th>Nacimento</th>
-				<th>Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($customers as $customer)
-			<tr>
-				<td>{{ $customer->name }}</td>
-				<td>{{ $customer->city }} - {{ $customer->state }}</td>
-				<td>{{ $customer->birthdate }}</td>
-				<td width="1%" nowrap>
-					<a href="{{ route('clientes.edit', $customer->id) }}" class="btn btn-xs btn-default">Editar</a>
-					<a href="#" class="btn btn-xs btn-default">Excluir</a>
-				</td>
-			</tr>
-			@endforeach
-		</tbody>
-	</table>
+	
+	@if(Session::has('success'))
+		<div class="alert-success">
+			{{ Session::get('success') }}
+		</div>
+	@endif
+
+	<div class="row">
+		<a href="{{ route('clientes.create') }}" class="btn btn-primary">Novo cliente</a>
+	</div>
+	<br>
+	<div class="row">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Cidade/Estado</th>
+					<th>Nacimento</th>
+					<th colspan="2" align="center">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($customers as $customer)
+				<tr>
+					<td>{{ $customer->name }}</td>
+					<td>{{ $customer->city }} - {{ $customer->state }}</td>
+					<td>{{ $customer->birthdate }}</td>
+					<td>
+						<a href="{{ route('clientes.edit', $customer->id) }}" class="btn btn-xs btn-success">Editar</a>
+					</td>
+					<td>
+						{!! Form::open(['route' => ['clientes.destroy', 'cliente' => $customer->id]]) !!}
+						<input type="hidden" name="_method" value="DELETE">
+						<button type="submit" class="btn btn-xs btn-danger">Excluir</button>
+						{!! Form::close() !!}
+					</td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
 @stop

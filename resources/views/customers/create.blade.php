@@ -22,8 +22,7 @@
 		</div>
 	@endif
 
-	{!! Form::model($customer, ['route' => ['clientes.update', 'cliente' => $customer->id]]) !!}
-	<input type="hidden" name="_method" value="PUT">
+	{!! Form::model($customer, ['route' => ['clientes.store']]) !!}
 	@include('customers.partials.form')
 	{!! Form::close() !!}
 @stop

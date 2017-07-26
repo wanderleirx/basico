@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('page-title')
-	| Editando Clientes
+	| Deletando Clientes
 @stop
 
 @section('content')
@@ -22,9 +22,10 @@
 		</div>
 	@endif
 
-	{!! Form::model($customer, ['route' => ['clientes.update', 'cliente' => $customer->id]]) !!}
-	<input type="hidden" name="_method" value="PUT">
-	@include('customers.partials.form')
-	{!! Form::close() !!}
+	@if(isset($_GET['id']))
+		<div class="row">
+			<h3>Deseja excluir o cliente: <strong></strong></h3>	
+		</div>
+	@endif
 @stop
 

@@ -8,7 +8,7 @@
 <body>
 	<div class="container">
 		<h1>Bem vindo ao mundo Laravel!</h1>
-		@yield('content');
+		@yield('content')
 	</div>
 </body>
 </html>
