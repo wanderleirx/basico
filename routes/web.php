@@ -11,7 +11,7 @@
 |
 */
 Route::get('/', function () {
-	return 'Seja bem vindo ao curso de laravel Básico com Codecasts!';
+	return 'Seja bem vindo ao curso de laravel Básico com Codecasts!!!';
 });
 
 Route::group(['prefix' => 'admin'], function () {
